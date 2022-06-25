@@ -8,17 +8,20 @@ Edit Contact
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <span class="block sm:inline">@foreach ($errors->all() as $error)
+                {{ $error }}
+                @endforeach</span>
             <div class="p-6 bg-white border-b border-gray-200">
                 <form method="POST" action="{{route('contacts.update', $contact->id)}}">
                     @csrf
                     <input type="hidden" name="_method" value="PUT" />
 
-                    <!-- Email Address -->
+                    <!-- Contact -->
                     <div>
-                        <x-label for="email" :value="__('Phone')" />
+                        <x-label for="phone" :value="__('Phone')" />
 
                         <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('Phone')"
-                            required autofocus />
+                            autofocus />
                     </div>
 
                     <div class="flex items-center  mt-4">
