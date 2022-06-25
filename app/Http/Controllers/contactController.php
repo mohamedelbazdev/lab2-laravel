@@ -68,7 +68,8 @@ class contactController extends Controller
      */
     public function edit($id)
     {
-        //
+        $contact = Contact::find($id);
+        return view ('contact.edit' , ['contact'=>$contact]);
     }
 
     /**
@@ -80,7 +81,13 @@ class contactController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $contact = Contact::find($id);
+
+        $contact->phone = $request->post('phone');
+
+        $contact->save();
+
+        return \redirect('/contacts');
     }
 
     /**
@@ -91,6 +98,8 @@ class contactController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $contact = Contact::find($id)->delete();
+
+        return redirect()->back();
     }
 }
