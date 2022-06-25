@@ -37,6 +37,16 @@ class contactController extends Controller
     public function store(Request $request)
     {
         //validation
+        $validated = $request->validate([
+
+            'phone' => [
+                'required',
+                'regex:/^(01)[0-2,5]{1}[0-9]{8}$/',
+                'max:11',
+                'unique:contact'
+              ]
+        ]);
+
     // dd(Auth::user()->name);
         //store in DB
         $contact = new Contact();
@@ -57,7 +67,9 @@ class contactController extends Controller
      */
     public function show($id)
     {
-        //
+        $contact = Contact::find($id);
+
+        return view('edit', ['contact' => $contact]);
     }
 
     /**
