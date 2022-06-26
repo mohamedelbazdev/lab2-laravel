@@ -12,4 +12,9 @@ class Contact extends Model
     protected $table = 'contact';
     use HasFactory;
     use SoftDeletes;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -14,8 +14,9 @@ Contacts
             <div class="mt-2 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md  dark:border-gray-700">
                 <div class="flex flex-col items-center pb-10">
 
-                    <span class="text-sm">ID : {{$contact->id}}</span>
-                    <span class="text-sm">Contact : {{$contact->phone}}</span>
+                    <h5 class="text-sm">ID : {{$contact->id}}</h5>
+                    <h3 class="text-xl">Contact : {{$contact->phone}}</h3>
+                    <span class="text-sm">Name : {{$contact->user->name}}</span>
                     <div class="flex mt-4 space-x-3 lg:mt-6">
                         <a class="btn btn-light mr-2" href='{{route("contacts.edit", $contact->id)}}'>Edit</a> |
                         <form method="POST" action="{{route('contacts.destroy', $contact->id)}}">
