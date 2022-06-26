@@ -66,9 +66,9 @@ class contactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Contact $contact)
     {
-        $contact = Contact::find($id);
+        // $contact = Contact::find($id);
 
         return view('edit', ['contact' => $contact]);
     }
@@ -79,9 +79,12 @@ class contactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Contact $contact)
     {
-        $contact = Contact::find($id);
+        // if ($request->user()->cannot('update', $post)) {
+        //     abort(403);
+        // }
+        $this->authorize('update', $contact);
         return view ('contact.edit' , ['contact'=>$contact]);
     }
 
@@ -92,9 +95,19 @@ class contactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Contact $contact)
     {
-        $contact = Contact::find($id);
+        // $contact = Contact::find($id);
+
+        $validated = $request->validate([
+
+            'phone' => [
+                'required',
+                'regex:/^(01)[0-2,5]{1}[0-9]{8}$/',
+                'max:11',
+                'unique:contact'
+                ]
+            ]);
 
         $contact->phone = $request->post('phone');
 
