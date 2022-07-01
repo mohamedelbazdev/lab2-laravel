@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use App\Http\Resources\ContactResource;
 
 class ContactController extends Controller
 {
@@ -15,7 +16,10 @@ class ContactController extends Controller
      */
     public function index()
     {
-        //
+        // return Contact::all();
+        // return Contact::select('phone')->get();
+        // return ContactResource::collection(contact::limit(3)->get());
+        return ContactResource::collection(contact::all());
     }
 
     /**
@@ -37,7 +41,8 @@ class ContactController extends Controller
      */
     public function show(Contact $contact)
     {
-        //
+        return new ContactResource($contact);
+        // return $contact;
     }
 
     /**
