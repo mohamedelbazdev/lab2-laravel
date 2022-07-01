@@ -16,7 +16,7 @@ class ContactResource extends JsonResource
     {
         // return parent::toArray($request);
         return [
-            'contact'=>$this->phone
+            'phone'=>$this->phone,
         ];
     }
 }

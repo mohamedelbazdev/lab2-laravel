@@ -20,8 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::get('contacts', [ContactController::class, 'index']);
-// // ->middleware('auth:sanctum');
-// Route::post('login', [ContactController::class, 'login']);
 
-Route::apiResource('contacts',ContactController::class);
+Route::apiResource('contacts',ContactController::class)->middleware('auth:sanctum');
+Route::post('login', [ContactController::class, 'login']);

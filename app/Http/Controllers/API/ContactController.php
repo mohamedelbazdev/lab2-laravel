@@ -4,8 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\ContactResource;
+use Auth;
 
 class ContactController extends Controller
 {
@@ -30,7 +32,14 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validation
+
+        // Store in DB
+        $contact = User::find(2)->contacts()->create($request->all());
+        // Respose
+        // return new ContactResource($contact);
+        if($contact->exists)
+            return (new ContactResource($contact));
     }
 
     /**
@@ -54,7 +63,12 @@ class ContactController extends Controller
      */
     public function update(Request $request, Contact $contact)
     {
-        //
+         // Validation
+
+        // Store in DB
+        $contact->update($request->all());
+        // Respose
+        return new ContactResource($contact);
     }
 
     /**
